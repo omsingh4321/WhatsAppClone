@@ -2,6 +2,7 @@ import React from 'react'
 import { Dialog ,Box,styled} from '@mui/material'
 import Menu from "./menu/Menu";
 import EmptyChat from './chat/EmptyChat';
+import ChatBox from './chat/ChatBox';
 const dialogStyle={
     height: '95%',
     width: '100%',
@@ -42,7 +43,8 @@ const chatsDialog = () => {
        <Menu/>
      </LeftComponent>
      <RightComponent>
-       <EmptyChat/>
+       {/* <EmptyChat/> */}
+       <ChatBox/>
      </RightComponent>
     </Component>
     </Dialog>

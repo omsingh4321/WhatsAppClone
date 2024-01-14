@@ -42,13 +42,13 @@ margin-left: auto;
 
 
 
-const ChatHeader = () => {
+const ChatHeader = ({person}) => {
   return (
     <Header>
-      <Image src={defaultProfilePicture} alt="Dp"/>
+      <Image src={person.picture} alt="Dp"/>
       <Box>
-        <Name>Name</Name>
-        <Status>Online</Status>
+        <Name>{person.name}</Name>
+        <Status>Offline</Status>
       </Box>
       <RightContainer>
         <Search/>

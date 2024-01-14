@@ -10,7 +10,6 @@ app.use(bodyParser.json({extended: true}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/',route);
 Connection();
-
 const PORT=5000;
 
 app.listen(PORT,()=>{

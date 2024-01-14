@@ -4,7 +4,7 @@ import { getUsers } from '../../services/api'
 import { Box,styled,Divider } from '@mui/material'
 import Conversations from './Conversations'
 import { AccountContext } from '../../context/AccountProvider'
-const Conversation = () => {
+const Conversation = ({text}) => {
 const [users,setUsers]= useState([]);
 
 const {account}= useContext(AccountContext);
@@ -24,11 +24,12 @@ opacity: 0.6;
     useEffect(()=>{
         const fetchdata=async()=>{
             let response=await getUsers();
-            setUsers(response);
+            const filterData= response.filter(user=> user.name.toLowerCase().includes(text.toLowerCase()));
+            setUsers(filterData);
         }
         fetchdata();
           
-    },[]);
+    },[text]);
 
 
   return (

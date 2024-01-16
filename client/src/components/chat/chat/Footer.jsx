@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, InputBase,styled } from '@mui/material'
 import {EmojiEmotionsOutlined,AttachFile,Mic} from '@mui/icons-material';
+import { useState } from 'react';
 
 const Container=styled(Box)`
 height: 55px;
@@ -32,7 +33,8 @@ transform: rotate(40deg);
 `
 
 
-const Footer = () => {
+const Footer = ({sendText,setText,text}) => {
+  
   return (
     <Container>
       <EmojiEmotionsOutlined/>
@@ -40,6 +42,9 @@ const Footer = () => {
       <Search>
         <InputField
             placeholder='Type a message'
+            onChange={(e)=>setText(e.target.value)}
+            onKeyDown={(e)=>sendText(e)}
+            value={text}
         />
       </Search>
       <Mic/>

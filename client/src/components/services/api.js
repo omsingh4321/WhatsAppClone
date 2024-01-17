@@ -51,3 +51,13 @@ export const newMessage=async(data)=>{
     console.log("Error in newMessage"+ error.message);
   }
 }
+export const getMessage=async(id)=>{
+  try{
+    let response= await axios.get(`${url}/message/get/${id}`);
+    return response.data;
+  }
+  catch(error)
+  {
+    console.log("Error in getMessage",error.message);
+  }
+}

@@ -61,3 +61,15 @@ export const getMessage=async(id)=>{
     console.log("Error in getMessage",error.message);
   }
 }
+export const uploadFile=async(data)=>{
+  try{
+    
+    data.forEach((value, key) => {
+      console.log(key, value);
+    });
+    return await axios.post(`${url}/file/upload`,data);
+  }
+  catch(error){
+    console.log("Error in uploadFile ",error.message);
+  }
+}

@@ -3,7 +3,7 @@ import { Box,styled } from '@mui/material'
 import Footer from './Footer'
 import { useContext } from 'react'
 import {newMessage,getMessage} from '../../services/api'
-import AccountProvider, {AccountContext} from '../../context/AccountProvider'
+import {AccountContext} from '../../context/AccountProvider'
 import Message from './Message'
 
 const Wrapper=styled(Box)`
@@ -21,6 +21,8 @@ const Messages = ({person,conversation}) => {
   const {account} =useContext(AccountContext);
   const [messages,setMessages]= useState([]);
   const [newMessageFlag,setNewMessageFlag]=useState(false);
+  const [file,setFile]=useState();
+  const [image,setImage]=useState('');
   useEffect(()=>{
      const getMessageDetails=async()=>{
        let data=await getMessage(conversation._id);
@@ -34,15 +36,30 @@ const Messages = ({person,conversation}) => {
    
    const code = e.keyCode || e.which;
 if(code===13){
-let message={
+  let message;
+  if(!file){
+message={
   senderId: account.sub,
   reciverId: person.sub,
   conversationId: conversation._id,
   type: 'text',
   text: text
 }
+  }
+  else{
+    message={
+      senderId: account.sub,
+      reciverId: person.sub,
+      conversationId: conversation._id,
+      type: 'file',
+      text: image
+    }
+  }
+
  await newMessage(message);
   setText('');
+  setFile('');
+  setImage('');
   setNewMessageFlag(prev=>!prev);
 }
   }
@@ -66,6 +83,10 @@ const Container=styled(Box)`
       <Footer sendText={sendText}
         setText={setText}
         text={text}
+        file={file}
+        setFile={setFile}
+        setImage={setImage}
+        image={image}
       />
     </Wrapper>
   )

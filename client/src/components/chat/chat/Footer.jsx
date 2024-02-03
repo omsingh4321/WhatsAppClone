@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, InputBase,styled } from '@mui/material'
 import {EmojiEmotionsOutlined,AttachFile,Mic} from '@mui/icons-material';
 import { useState } from 'react';
-
+import { uploadFile } from '../../services/api';
 const Container=styled(Box)`
 height: 55px;
 background: #ededed;
@@ -33,12 +33,40 @@ transform: rotate(40deg);
 `
 
 
-const Footer = ({sendText,setText,text}) => {
+
+const Footer = ({sendText,setText,text,file,setFile,setImage,image}) => {
+  const onFileChange=(e)=>{
+   setFile(e.target.files[0]);
+   setText(e.target.files[0].name);
+  }
   
+  useEffect(()=>{
+      const getImage= async()=>{
+          if(file)
+          {
+            const data= new FormData();
+            console.log(file);
+            data.append('primary',`${file.lastModified}${file.name}`)
+            data.append('name',file.name);
+            data.append('file',file);
+            setImage(`http://localhost:5000/file/${file.lastModified}${file.name}`);
+           await uploadFile(data);
+          }
+      }
+      getImage();
+  },[file])
+
   return (
     <Container>
       <EmojiEmotionsOutlined/>
+      <label htmlFor='FileInput'>
       <ClipIceon/>
+      </label>
+      <input type='file'
+        style={{display: 'none'}}
+        id='FileInput'
+        onChange={(e)=>onFileChange(e)}
+      />
       <Search>
         <InputField
             placeholder='Type a message'
